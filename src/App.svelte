@@ -8,10 +8,9 @@
 
 <style>
 	main{
-		min-width: 100vw;
-		min-height: 100vh;
+		flex-grow:1;
 		margin: 0;
-		padding: 0;
+		padding: 16px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
