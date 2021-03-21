@@ -20,9 +20,8 @@
         padding: 16px;
         border-radius: 16px;
         border: 1px solid #dfdfdf;
-        margin: 16px 0;
-        display: flex;
-        min-width: 300px;
+        margin: 0;
+        margin-bottom: 16px;
         display: flex;
         flex-direction: column;
     }

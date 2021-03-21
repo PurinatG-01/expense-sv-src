@@ -10,7 +10,7 @@
         {
             title: "Expense 2",
             value: 200,
-            color: "#4657bb",
+            color: "#46aabb",
         },
         {
             title: "Expense 3",
@@ -22,12 +22,17 @@
             value: 300,
             color: "#aa57dd",
         },
+        {
+            title: "Expense 5",
+            value: 300,
+            color: "#aa90dd",
+        },
     ];
 </script>
 
 <!-- markup (zero or more items) goes here -->
 
-<div style="background-color: transparent;">
+<div style="background-color: transparent;margin: 16px 0; min-width: 288px; display: flex; flex-direction: column;">
     <ExpenseBar data={expenses} />
     <div class="list-wrapper">
         {#each expenses as expense}
@@ -59,15 +64,15 @@
     }
 
     .list-wrapper {
-        padding: 16px;
         border-radius: 16px;
+        margin: 0;
+        padding: 16px;
         border: 1px solid #dfdfdf;
         flex-direction: column;
         display: flex;
     }
 
     .list-wrapper > .todo {
-        min-width: 300px;
         padding: 16px;
         margin-bottom: 16px;
         border-radius: 16px;
