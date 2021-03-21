@@ -2,9 +2,11 @@
     import ExpenseBar from "./ExpenseBar.svelte";
 
     export let data
+    export let title
 </script>
 
 <div class="list-master">
+    <h3 class="list-title">{title}</h3>
     <ExpenseBar data={data} />
     <div class="list-wrapper">
         {#each data as expense}
@@ -13,6 +15,7 @@
                 <span style="color: {expense.color};"
                     >&nbsp : {expense.value}</span
                 >
+                <input class="color-picker" type="color" />
             </div>
         {/each}
         <button class="add-button">Add</button>
@@ -20,6 +23,17 @@
 </div>
 
 <style>
+
+    .color-picker{
+        margin: 0;
+        width: 32px;
+        height: 32px;
+        margin-left: auto;
+    }
+    .list-title{
+        font-weight: 400;
+
+    }
     .circle-button {
         border-radius: 50%;
         width: 1em;
