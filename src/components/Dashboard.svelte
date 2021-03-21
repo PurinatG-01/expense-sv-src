@@ -1,7 +1,7 @@
-<script lang="ts">
+<script>
     import ExpenseBar from "./ExpenseBar.svelte";
 
-    let expenses: Array<Object> = [
+    let expenses = [
         {
             title: "Expense 1",
             value: 145,
