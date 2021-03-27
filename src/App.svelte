@@ -2,7 +2,7 @@
 	import Dashboard from "./components/Dashboard.svelte";
 </script>
 
-<main>
+<main class="duration-200 dark:bg-gray-800">
 	<Dashboard />
 </main>
 

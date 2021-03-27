@@ -1,59 +1,36 @@
 <script>
     // your script goes here
-    export let data
+    import { onMount } from 'svelte'
 
     let totalExpense = 0
-
-    data.forEach(element => {
-        totalExpense += element.value
-    });
-
+    let listData = null
+    
     const calculatePercentage = (value)=>{
         return Math.round((value/totalExpense)*100)
     }
 
+    export let data
+
+    $: {
+        listData = data;
+        totalExpense = 0
+        data.forEach(element => {
+            totalExpense += element.value
+        });
+    };
+
 </script>
-
-<style>
-    /* your styles go here */
-    .expense-bar-wrapper{
-        padding: 16px;
-        border-radius: 16px;
-        border: 1px solid #dfdfdf;
-        margin: 0;
-        margin-bottom: 16px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .bar{
-        border-radius: 16px;
-        border: 1px solid #dfdfdf;
-        height: 16px;
-        display: flex;
-        overflow: hidden;
-    }
-
-    .item{
-        height: 100%;
-        min-width: 20px;
-    }
-    .expense-bar-title{
-        margin: 0;
-        margin-bottom: 8px;
-        font-weight: 200;
-        font-size: 16px;
-    }
-</style>
 
 <!-- markup (zero or more items) goes here -->
 
-<div class="expense-bar-wrapper">
-    <h5 class="expense-bar-title" >Total expense : {totalExpense}</h5>
-    <div class="bar">
+<div class="p-4 mb-4 duration-200 border border-gray-200 shadow-lg dark:border-gray-600 dark:bg-gray-800 rounded-2xl">
+    <h5 class="mb-2 text-lg text-gray-600 bg-transparent dark:text-gray-100" >Total expense : {totalExpense}</h5>
+    <div class="flex h-4 overflow-hidden rounded-2xl">
+        {#if listData}
         {#each data as item}
-            <div class="item" style='background-color: { item.color }; flex-grow: {calculatePercentage(item.value)};'>
+            <div style='background-color: { item.color }; flex-grow: {calculatePercentage(item.value)};'>
             </div>
         {/each}
+        {/if }
     </div>
 </div>
