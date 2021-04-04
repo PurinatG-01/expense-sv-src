@@ -2,6 +2,8 @@
     import ExpenseList from "./ExpenseList.svelte";
     import Dialog from "./Dialog.svelte";
     import { expensesList } from "../config/store/expenses";
+    import { _addExpensesList } from "../utility/_expenses"
+    
 
     let isDark = false;
     let newListTitle;
@@ -33,18 +35,28 @@
 
     const addNewExpenses = () => {
         isAddDialogOpen = false;
-        $expensesList = [
-            ...$expensesList,
-            {
+        // $expensesList = [
+        //     ...$expensesList,
+        //     {
+        //         title: newListTitle ?? "-",
+        //         id: Date.now(),
+        //         expenses: [],
+        //     },
+        // ];
+        _addExpensesList({
                 title: newListTitle ?? "-",
-                id: Date.now(),
+                uid: 1,
                 expenses: [],
-            },
-        ];
+            },)
+        newListTitle = undefined
     };
 
     const toggleAddNewListDialog = ()=>{
         isAddDialogOpen = true;
+    }
+
+    $: {
+        console.log(`> $expensesList : `,$expensesList)
     }
 </script>
 
@@ -99,9 +111,9 @@
     {#each userExpenses as expenses, index}
         <ExpenseList
             {index}
-            bind:id={expenses.id}
-            bind:title={expenses.title}
-            bind:data={expenses.expenses}
+            id={expenses.id}
+            title={expenses.title}
+            data={expenses.expenses}
             on:save={onExpenseListSave}
             on:delete={onExpenseListDelete}
         />

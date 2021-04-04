@@ -1,6 +1,15 @@
 <script>
     import ExpenseBar from "./ExpenseBar.svelte";
     import { createEventDispatcher } from "svelte";
+    import {
+        _removeExpensesList,
+        _updateExpensesList,
+    } from "../utility/_expenses";
+
+    export let data;
+    export let title;
+    export let index;
+    export let id;
 
     const dispatch = createEventDispatcher();
 
@@ -15,20 +24,14 @@
 
     const deleteExpenses = () => {
         toggleEdit = false;
-        dispatch("delete", {
-            index: index,
-        });
+        // dispatch("delete", {
+        //     index: index,
+        // });
+        _removeExpensesList(id);
     };
     const saveExpenses = () => {
         toggleEdit = false;
-        dispatch("save", {
-            newExpenses: {
-                title: title,
-                id: Date.now(),
-                expenses: listData,
-            },
-            index: index,
-        });
+        _updateExpensesList(id, listData);
     };
 
     const addExpense = () => {
@@ -44,18 +47,13 @@
     };
 
     const removeExpense = (index) => {
-        listData.splice(index,1)
+        listData.splice(index, 1);
         listData = [...listData];
-    }
-
-    export let id;
-    export let data;
-    export let title;
-    export let index;
+    };
 
     $: {
         listData = data;
-    };
+    }
 </script>
 
 <div
@@ -69,8 +67,7 @@
             <h3
                 class="pl-2 mb-2 font-semibold text-gray-600 bg-transparent dark:text-gray-100 "
             >
-                {title} : {id}
-
+                {title}
                 {#if !toggleEdit}
                     <button
                         on:click={editExpenses}
@@ -79,7 +76,7 @@
                     >
                 {/if}
             </h3>
-            {#each listData as expense, i }
+            {#each listData as expense, i}
                 <div
                     class="flex items-center px-2 py-2 mb-4 overflow-hidden text-sm font-light text-gray-600 duration-100 bg-transparent border-b border-gray-200 dark:text-gray-100 dark:border-gray-600 whitespace-nowrap"
                 >
@@ -88,11 +85,13 @@
                         >&nbsp : {expense.value}</span
                     >
                     {#if toggleEdit}
-                    <button
-                        on:click={()=>{removeExpense(i)}}
-                        class="flex items-center justify-center w-6 h-6 ml-auto mr-0 text-sm font-light text-red-400 duration-200 border border-red-400 inline-blockpx-8 duration focus:outline-none rounded-2xl hover:border-opacity-0 hover:text-gray-50 hover:bg-red-400"
-                        >-</button
-                    >
+                        <button
+                            on:click={() => {
+                                removeExpense(i);
+                            }}
+                            class="flex items-center justify-center w-6 h-6 ml-auto mr-0 text-sm font-light text-red-400 duration-200 border border-red-400 inline-blockpx-8 duration focus:outline-none rounded-2xl hover:border-opacity-0 hover:text-gray-50 hover:bg-red-400"
+                            >-</button
+                        >
                     {/if}
                 </div>
             {/each}
@@ -131,9 +130,10 @@
                         >Save</button
                     >
                     <button
-                    on:click={deleteExpenses}
-                    class="px-8 py-2 text-sm font-light text-red-400 duration-200 border border-red-400 duration focus:outline-none rounded-2xl hover:border-opacity-0 hover:text-gray-50 hover:bg-red-400"
-                    >Delete</button>
+                        on:click={deleteExpenses}
+                        class="px-8 py-2 text-sm font-light text-red-400 duration-200 border border-red-400 duration focus:outline-none rounded-2xl hover:border-opacity-0 hover:text-gray-50 hover:bg-red-400"
+                        >Delete</button
+                    >
                 </div>
             {/if}
         </div>

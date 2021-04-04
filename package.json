@@ -32,7 +32,10 @@
     "autoprefixer": "^10.2.5",
     "concurrently": "^6.0.0",
     "cross-env": "^7.0.3",
+    "firebase": "^8.3.2",
     "postcss-cli": "^8.3.1",
+    "rxfire": "^4.0.0",
+    "rxjs": "^6.6.7",
     "sirv-cli": "^1.0.0",
     "tailwindcss": "^2.0.4"
   }
