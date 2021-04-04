@@ -5,6 +5,12 @@ export const _login = () => {
     auth.signInWithPopup(googleProvider)
 }
 
+export const _toggleDarkMode = (uid, data)=> {
+    db.collection('users').doc(uid).update({ 
+        darkMode : data
+    });
+} 
+
 export const _logout = () => {
     auth.signOut()
 }

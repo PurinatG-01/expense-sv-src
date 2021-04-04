@@ -63,9 +63,9 @@
 
 			<button
 				on:click={_logout}
-				class="w-10 h-10 p-2 text-sm font-light text-red-400 duration-200 border border-red-400 sm:px-8 sm:py-2 duration focus:outline-none rounded-2xl hover:border-opacity-0 hover:text-gray-50 hover:bg-red-400"
+				class="w-10 h-10 p-2 text-sm font-light text-red-400 duration-200 border border-red-400 sm:px-8 sm:py-2 sm:w-auto sm:h-auto duration focus:outline-none rounded-2xl hover:border-opacity-0 hover:text-gray-50 hover:bg-red-400"
 				><span class="hidden bg-transparent sm:block">Log out</span>
-				<span class="block bg-transparent sm:hidden">=></span>
+				<span class="inline bg-transparent sm:hidden">=></span>
 			</button>
 		</div>
 		<Dashboard uid={currentUser.uid} />

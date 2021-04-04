@@ -4,6 +4,7 @@
     import { expensesList } from "../config/store/expenses";
     import { _addExpensesList } from "../utility/_expenses";
     import { settingPreference } from "../config/store/user";
+import { _toggleDarkMode } from "../utility/_user";
 
     export let uid;
 
@@ -20,6 +21,7 @@
 
     const toggleDark = () => {
         isDark = !isDark;
+        _toggleDarkMode(uid, isDark)
         if (isDark) document.querySelector("html").classList.add("dark");
         else document.querySelector("html").classList.remove("dark");
     };
@@ -51,9 +53,6 @@
     };
 
     $: {
-        // console.log(`> userPreference : `,userPreference)
-        console.log(`> $settingPreference : `,$settingPreference)
-        
         if($settingPreference){
             isDark = $settingPreference[0].darkMode
             if (isDark) document.querySelector("html").classList.add("dark");
