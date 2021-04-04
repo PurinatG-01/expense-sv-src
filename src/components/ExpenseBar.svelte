@@ -24,7 +24,7 @@
 <!-- markup (zero or more items) goes here -->
 
 <div class="p-4 mb-4 duration-200 border border-gray-200 shadow-lg dark:border-gray-600 dark:bg-gray-800 rounded-2xl">
-    <h5 class="mb-2 text-lg text-gray-600 bg-transparent dark:text-gray-100" >Total expense : {totalExpense}</h5>
+    <h3 class="mb-2 text-lg font-semibold text-gray-600 bg-transparent dark:text-gray-100" >Total expense : {totalExpense}</h3>
     <div class="flex h-4 overflow-hidden rounded-2xl">
         {#if listData}
         {#each data as item}

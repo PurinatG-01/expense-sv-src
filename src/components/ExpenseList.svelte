@@ -54,8 +54,6 @@
     export let index;
 
     $: {
-        console.log(`> list data : `, data)
-        
         listData = data;
     };
 </script>
@@ -69,7 +67,7 @@
             class="px-4 py-8 transition-all duration-200 border border-gray-200 shadow-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 rounded-2xl "
         >
             <h3
-                class="pl-2 mb-2 font-normal text-gray-600 bg-transparent dark:text-gray-100 "
+                class="pl-2 mb-2 font-semibold text-gray-600 bg-transparent dark:text-gray-100 "
             >
                 {title} : {id}
 

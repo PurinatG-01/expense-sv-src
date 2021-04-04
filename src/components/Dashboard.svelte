@@ -2,12 +2,13 @@
     import ExpenseList from "./ExpenseList.svelte";
     import Dialog from "./Dialog.svelte";
     import { expensesList } from "../config/store/expenses";
+
     let isDark = false;
+    let newListTitle;
+    let isAddDialogOpen = false;
+    let userExpenses;
 
     // subscribe to expenses store
-    let userExpenses;
-    let isAddDialogOpen = false;
-
     const unsubExpenses = expensesList.subscribe((val) => {
         userExpenses = val;
     });
@@ -31,16 +32,20 @@
     };
 
     const addNewExpenses = () => {
-        // isAddDialogOpen = true;
+        isAddDialogOpen = false;
         $expensesList = [
             ...$expensesList,
             {
-                title: "test title",
+                title: newListTitle ?? "-",
                 id: Date.now(),
                 expenses: [],
             },
         ];
     };
+
+    const toggleAddNewListDialog = ()=>{
+        isAddDialogOpen = true;
+    }
 </script>
 
 <Dialog
@@ -48,7 +53,24 @@
     on:close={() => {
         isAddDialogOpen = false;
     }}
-/>
+    title="Add new list"
+>
+    <form
+        class="w-full"
+        on:submit|preventDefault={addNewExpenses}
+    >
+        <input
+            placeholder="Insert list name..."
+            bind:value={newListTitle}
+            class="w-full h-8 mb-4 text-sm font-light border-t-0 border-b border-l-0 border-r-0 border-blue-400 focus:outline-none"
+        />
+        <button
+            type="submit"
+            class="float-right px-8 py-2 mr-2 text-sm font-light text-green-400 duration-200 border border-green-400 duration focus:outline-none rounded-2xl hover:border-opacity-0 hover:text-gray-50 hover:bg-green-400"
+            >Add
+        </button>
+    </form>
+</Dialog>
 <h1
     class="w-full text-4xl font-extrabold text-gray-600 bg-transparent dark:text-gray-100 max-w-screen-2xl"
 >
@@ -67,7 +89,7 @@
         Toggle Dark mode
     </div>
     <div
-        on:click={addNewExpenses}
+        on:click={toggleAddNewListDialog}
         class="px-4 py-2 mx-auto ml-0 font-light text-gray-100 duration-200 bg-green-400 border border-green-200 rounded-full shadow-lg cursor-pointer w-min whitespace-nowrap dark:text-gray-100 dark:border-gray-600 dark:bg-green-400"
     >
         Add new list

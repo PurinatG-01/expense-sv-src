@@ -12,6 +12,8 @@
         dispatch('close')
     }
 
+    export let title;
+
 </script>
 
 <style>
@@ -22,7 +24,10 @@
 
 {#if isVisible}
 <div on:click|once={onClose} class="absolute top-0 left-0 flex items-center w-screen h-screen p-0 m-0 duration-200 bg-gray-600 bg-opacity-50">
-    <div class="w-full h-full max-w-xs mx-auto border-gray-200 max-h-96 rounded-2xl dark:border-gray-600">
+    <div on:click|stopPropagation={()=>{}} class="w-full max-w-xs p-4 mx-auto border-gray-200 rounded-2xl dark:border-gray-600">
+        <h3 class="w-full mb-4 font-semibold text-gray-600">{title}</h3>
+        <slot class="w-full">
+        </slot>
     </div>
 </div>
 {/if}
