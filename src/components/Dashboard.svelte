@@ -2,10 +2,12 @@
     import ExpenseList from "./ExpenseList.svelte";
     import Dialog from "./Dialog.svelte";
     import { expensesList } from "../config/store/expenses";
-    import { _addExpensesList } from "../utility/_expenses"
-    
+    import { _addExpensesList } from "../utility/_expenses";
+    import { settingPreference } from "../config/store/user";
 
-    let isDark = false;
+    export let uid;
+
+    let isDark;
     let newListTitle;
     let isAddDialogOpen = false;
     let userExpenses;
@@ -14,6 +16,7 @@
     const unsubExpenses = expensesList.subscribe((val) => {
         userExpenses = val;
     });
+
 
     const toggleDark = () => {
         isDark = !isDark;
@@ -35,28 +38,27 @@
 
     const addNewExpenses = () => {
         isAddDialogOpen = false;
-        // $expensesList = [
-        //     ...$expensesList,
-        //     {
-        //         title: newListTitle ?? "-",
-        //         id: Date.now(),
-        //         expenses: [],
-        //     },
-        // ];
         _addExpensesList({
-                title: newListTitle ?? "-",
-                uid: 1,
-                expenses: [],
-            },)
-        newListTitle = undefined
+            title: newListTitle ?? "-",
+            uid: uid,
+            expenses: [],
+        });
+        newListTitle = undefined;
     };
 
-    const toggleAddNewListDialog = ()=>{
+    const toggleAddNewListDialog = () => {
         isAddDialogOpen = true;
-    }
+    };
 
     $: {
-        console.log(`> $expensesList : `,$expensesList)
+        // console.log(`> userPreference : `,userPreference)
+        console.log(`> $settingPreference : `,$settingPreference)
+        
+        if($settingPreference){
+            isDark = $settingPreference[0].darkMode
+            if (isDark) document.querySelector("html").classList.add("dark");
+            else document.querySelector("html").classList.remove("dark");
+        }
     }
 </script>
 
@@ -67,10 +69,7 @@
     }}
     title="Add new list"
 >
-    <form
-        class="w-full"
-        on:submit|preventDefault={addNewExpenses}
-    >
+    <form class="w-full" on:submit|preventDefault={addNewExpenses}>
         <input
             placeholder="Insert list name..."
             bind:value={newListTitle}
@@ -83,16 +82,6 @@
         </button>
     </form>
 </Dialog>
-<h1
-    class="w-full text-4xl font-extrabold text-gray-600 bg-transparent dark:text-gray-100 max-w-screen-2xl"
->
-    Expense-SV
-</h1>
-<h2
-    class="w-full mb-8 text-xl text-gray-600 bg-transparent dark:text-gray-100 max-w-screen-2xl"
->
-    by Purinat Sanbundit
-</h2>
 <div class="flex w-full mb-8 bg-transparent max-w-screen-2xl">
     <div
         class="px-4 py-2 mx-auto ml-0 mr-4 font-light text-gray-600 duration-200 border border-gray-200 rounded-full shadow-lg cursor-pointer w-min whitespace-nowrap hover:bg-yellow-400 hover:text-gray-100 dark:text-gray-100 dark:border-gray-600 dark:bg-yellow-400"

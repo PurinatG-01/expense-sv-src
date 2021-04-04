@@ -8,7 +8,6 @@
 
     export let data;
     export let title;
-    export let index;
     export let id;
 
     const dispatch = createEventDispatcher();
