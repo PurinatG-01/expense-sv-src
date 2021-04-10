@@ -4,11 +4,10 @@
     import { expensesList } from "../config/store/expenses";
     import { _addExpensesList } from "../utility/_expenses";
     import { settingPreference } from "../config/store/user";
-import { _toggleDarkMode } from "../utility/_user";
 
     export let uid;
 
-    let isDark;
+    let isDark = false;
     let newListTitle;
     let isAddDialogOpen = false;
     let userExpenses;
@@ -21,7 +20,6 @@ import { _toggleDarkMode } from "../utility/_user";
 
     const toggleDark = () => {
         isDark = !isDark;
-        _toggleDarkMode(uid, isDark)
         if (isDark) document.querySelector("html").classList.add("dark");
         else document.querySelector("html").classList.remove("dark");
     };
@@ -52,13 +50,6 @@ import { _toggleDarkMode } from "../utility/_user";
         isAddDialogOpen = true;
     };
 
-    $: {
-        if($settingPreference){
-            isDark = $settingPreference[0].darkMode
-            if (isDark) document.querySelector("html").classList.add("dark");
-            else document.querySelector("html").classList.remove("dark");
-        }
-    }
 </script>
 
 <Dialog
@@ -82,12 +73,12 @@ import { _toggleDarkMode } from "../utility/_user";
     </form>
 </Dialog>
 <div class="flex w-full mb-8 bg-transparent max-w-screen-2xl">
-    <div
+    <!-- <div
         class="px-4 py-2 mx-auto ml-0 mr-4 font-light text-gray-600 duration-200 border border-gray-200 rounded-full shadow-lg cursor-pointer w-min whitespace-nowrap hover:bg-yellow-400 hover:text-gray-100 dark:text-gray-100 dark:border-gray-600 dark:bg-yellow-400"
         on:click={toggleDark}
     >
         Toggle Dark mode
-    </div>
+    </div> -->
     <div
         on:click={toggleAddNewListDialog}
         class="px-4 py-2 mx-auto ml-0 font-light text-gray-100 duration-200 bg-green-400 border border-green-200 rounded-full shadow-lg cursor-pointer w-min whitespace-nowrap dark:text-gray-100 dark:border-gray-600 dark:bg-green-400"
